@@ -1,16 +1,8 @@
-import express, { Request, Response } from 'express';
-import helloRoute from './routes/hello';
+import app from './app';
+import 'dotenv/config';
 
-const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use('/hello', helloRoute);
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('🚀 Express + TypeScript Server is Running');
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+}
